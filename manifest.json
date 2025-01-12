@@ -1,0 +1,9 @@
+{
+  "id": "clipper",
+  "name": "Clipper",
+  "description": "An extension to copy text/images using wl-copy. You can also use code snippets with arguments",
+  "creator_name": "Whiskers Apps",
+  "creator_link": "https://github.com/Whiskers-Apps",
+  "repository_link": "https://github.com/Whiskers-Apps/tigris-clipper",
+  "settings": []
+}
