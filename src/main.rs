@@ -1,7 +1,7 @@
 use forms::handle_forms;
 use results::handle_results;
-use tigris_rs::features::api::{
-    get_extension_request,
+use tigris_core::features::api::{
+    get_request,
     RequestType::{FormResults, GetResults, RunAction},
 };
 
@@ -13,7 +13,7 @@ pub mod results;
 const EXTENSION_ID: &str = "clipper";
 
 fn main() {
-    let request = get_extension_request();
+    let request = get_request().unwrap();
 
     match request.request_type {
         GetResults => {

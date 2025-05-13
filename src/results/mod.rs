@@ -1,13 +1,13 @@
-use std::{path::Path, process::exit};
+use std::path::Path;
 
 use sniffer_rs::sniffer::Sniffer;
-use tigris_rs::features::{
+use tigris_core::features::{
     actions::{
         CopyImageAction, CopyTextAction, Field, FieldValidation, FileSystemField, OpenFormAction,
         ResultAction, SelectField, SelectFieldValue, TextAreaField, TextField,
     },
-    api::{send_search_results, GetResultsRequest},
-    search::get_search_query,
+    api::{return_search_results, GetResultsRequest},
+    search::SearchQuery,
     search_results::SearchResult,
 };
 
@@ -18,7 +18,7 @@ use crate::{
 };
 
 pub fn handle_results(request: GetResultsRequest) {
-    let search_query = get_search_query(&request.search_text);
+    let search_query = SearchQuery::from(&request.search_text);
     let keyword = search_query.keyword;
     let search_text = if keyword.is_some() {
         search_query.search_text
@@ -153,8 +153,7 @@ pub fn handle_results(request: GetResultsRequest) {
             results.push(delete_clip_result);
         }
 
-        send_search_results(&results);
-        exit(0);
+        return_search_results(&results);
     }
 
     if let Some(keyword) = &keyword {
@@ -272,7 +271,5 @@ pub fn handle_results(request: GetResultsRequest) {
 
     results.append(&mut clips);
 
-    send_search_results(&results);
-
-    exit(0)
+    return_search_results(&results);
 }
